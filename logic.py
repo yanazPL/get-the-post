@@ -1,5 +1,5 @@
 from enum import StrEnum
-from PyQt6.QtNetwork import QNetworkRequest, QNetworkReply
+from PySide6.QtNetwork import QNetworkRequest, QNetworkReply
 
 
 class ACTIONS_METHODS(StrEnum):

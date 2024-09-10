@@ -1,6 +1,6 @@
-from PyQt6.QtWidgets import QApplication, QWidget, QComboBox, QVBoxLayout, QHBoxLayout, QLineEdit, QPushButton, QLabel, QTextEdit, QTabWidget, QListWidget
-from PyQt6.QtNetwork import QNetworkAccessManager, QNetworkRequest, QNetworkReply
-from PyQt6.QtCore import QUrl, QByteArray
+from PySide6.QtWidgets import QApplication, QWidget, QComboBox, QVBoxLayout, QHBoxLayout, QLineEdit, QPushButton, QLabel, QTextEdit, QTabWidget, QListWidget
+from PySide6.QtNetwork import QNetworkAccessManager, QNetworkRequest, QNetworkReply
+from PySide6.QtCore import QUrl, QByteArray
 import sys
 import json
 from functools import partial
