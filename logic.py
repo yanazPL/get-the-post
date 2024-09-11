@@ -16,15 +16,17 @@ def send_request(manager, action_method, url, data=None, params=None, headers=No
     if action_method == ACTIONS_METHODS.GET:
         manager.get(request)
     elif action_method == ACTIONS_METHODS.POST:
-       manager.post(request, data)
+        manager.post(request, data)
     elif action_method == ACTIONS_METHODS.PATCH:
         manager.patch(request, data)
     elif action_method == ACTIONS_METHODS.DELETE:
         manager.deleteResource(request)
     elif action_method == ACTIONS_METHODS.PUT:
-        request.setHeader(QNetworkRequest.ContentTypeHeader, 'application/json; charset=UTF-8')
+        request.setHeader(
+            QNetworkRequest.ContentTypeHeader, "application/json; charset=UTF-8"
+        )
         manager.put(request, data)
-        
+
 
 def handle_response(reply, callback):
     error = reply.error()

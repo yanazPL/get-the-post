@@ -6,20 +6,21 @@ from ..logic import ACTIONS_METHODS
 EXISTING_ID = 1
 NON_EXISTING_ID = 666
 
-data_str_update = f'''{{
+data_str_update = f"""{{
     "id": {EXISTING_ID},
     "title": "foo",
     "body": "new_bar",
     "userId": 1
-}}'''
+}}"""
 
-data_str_create = f'''{{
+data_str_create = f"""{{
     "id": {NON_EXISTING_ID},
     "title": "new_foo",
     "body": "new_bar",
     "userId": 1
 }}
-'''
+"""
+
 
 @pytest.mark.parametrize("data_str", [data_str_create])
 def test_post(qtbot, data_str):
@@ -30,7 +31,8 @@ def test_post(qtbot, data_str):
     ui.body.setPlainText(data_str)
     result_before = ui.result.toPlainText()
     ui.send_btn.click()
-    qtbot.wait(1000) #TODO qtbot.waitSignal(ui.rest_logic.network_manager.finished) doesnt wait for callback
+    qtbot.wait(1000)
+    # TODO qtbot.waitSignal(ui.rest_logic.network_manager.finished) doesnt wait for callback
     assert ui.result.toPlainText() != result_before
 
 
@@ -42,7 +44,8 @@ def test_get_list(qtbot):
     ui.url.setText("https://jsonplaceholder.typicode.com/posts")
     result_before = ui.result.toPlainText()
     ui.send_btn.click()
-    qtbot.wait(1000) #TODO qtbot.waitSignal(ui.rest_logic.network_manager.finished) doesnt wait for callback
+    qtbot.wait(1000)
+    # TODO qtbot.waitSignal(ui.rest_logic.network_manager.finished) doesnt wait for callback
     assert ui.result.toPlainText() != result_before
 
 
@@ -54,7 +57,8 @@ def test_get_one(qtbot):
     ui.url.setText(f"https://jsonplaceholder.typicode.com/posts/{EXISTING_ID}")
     result_before = ui.result.toPlainText()
     ui.send_btn.click()
-    qtbot.wait(1000) #TODO qtbot.waitSignal(ui.rest_logic.network_manager.finished) doesnt wait for callback
+    qtbot.wait(1000)
+    # TODO qtbot.waitSignal(ui.rest_logic.network_manager.finished) doesnt wait for callback
     assert ui.result.toPlainText() != result_before
 
 
@@ -68,7 +72,8 @@ def test_patch(qtbot):
     ui.body.setPlainText(data_str)
     result_before = ui.result.toPlainText()
     ui.send_btn.click()
-    qtbot.wait(1000) #TODO qtbot.waitSignal(ui.rest_logic.network_manager.finished) doesnt wait for callback
+    qtbot.wait(1000)
+    # TODO qtbot.waitSignal(ui.rest_logic.network_manager.finished) doesnt wait for callback
     assert ui.result.toPlainText() != result_before
 
 
@@ -80,7 +85,8 @@ def test_delete(qtbot):
     ui.url.setText(f"https://jsonplaceholder.typicode.com/posts/{EXISTING_ID}")
     result_before = ui.result.toPlainText()
     ui.send_btn.click()
-    qtbot.wait(1000) #TODO qtbot.waitSignal(ui.rest_logic.network_manager.finished) doesnt wait for callback
+    qtbot.wait(1000)
+    # TODO qtbot.waitSignal(ui.rest_logic.network_manager.finished) doesnt wait for callback
     assert ui.result.toPlainText() != result_before
 
 
@@ -94,5 +100,6 @@ def test_put(qtbot, data_str):
     ui.body.setPlainText(data_str)
     result_before = ui.result.toPlainText()
     ui.send_btn.click()
-    qtbot.wait(1000) #TODO qtbot.waitSignal(ui.rest_logic.network_manager.finished) doesnt wait for callback
+    qtbot.wait(1000)
+    # TODO qtbot.waitSignal(ui.rest_logic.network_manager.finished) doesnt wait for callback
     assert ui.result.toPlainText() != result_before
