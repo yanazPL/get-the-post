@@ -11,19 +11,24 @@ class ACTIONS_METHODS(StrEnum):
     OPTIONS = "OPTIONS"
 
 
-def send_request(network_manager, action_method, url, data=None, params=None, headers=None):
+def send_request(manager, action_method, url, data=None, params=None, headers=None):
     request = QNetworkRequest(url)
-    request.setHeader(QNetworkRequest.KnownHeaders.ContentTypeHeader, "application/json")
     if action_method == ACTIONS_METHODS.GET:
-        network_manager.get(request)
+        manager.get(request)
     elif action_method == ACTIONS_METHODS.POST:
-       network_manager.post(request, data)
-
+       manager.post(request, data)
+    elif action_method == ACTIONS_METHODS.PATCH:
+        manager.patch(request, data)
+    elif action_method == ACTIONS_METHODS.DELETE:
+        manager.deleteResource(request)
+    elif action_method == ACTIONS_METHODS.PUT:
+        request.setHeader(QNetworkRequest.ContentTypeHeader, 'application/json; charset=UTF-8')
+        manager.put(request, data)
+        
 
 def handle_response(reply, callback):
     error = reply.error()
     if error == QNetworkReply.NetworkError.NoError:
-        print("success")
         data = reply.readAll()
         response_str = data.data().decode()
         callback(response_str)

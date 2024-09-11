@@ -1,5 +1,5 @@
 from PySide6.QtWidgets import QApplication, QWidget, QComboBox, QVBoxLayout, QHBoxLayout, QLineEdit, QPushButton, QLabel, QTextEdit, QTabWidget, QListWidget
-from PySide6.QtNetwork import QNetworkAccessManager, QNetworkRequest, QNetworkReply
+from PySide6.QtNetwork import QNetworkAccessManager, QNetworkRequest, QNetworkReply, QRestAccessManager
 from PySide6.QtCore import QUrl, QByteArray
 import sys
 import json
@@ -34,6 +34,7 @@ class UserInterface(QWidget):
         
         self.setLayout(main_vbox)
         self.network_manager = QNetworkAccessManager()
+        self.rest_manager = QRestAccessManager(self.network_manager)
         self.handle_response_update = partial(handle_response, callback=self.update_ui)
         self.network_manager.finished.connect(self.handle_response_update)
         self.send_btn.clicked.connect(self.send_click)
@@ -58,7 +59,7 @@ class UserInterface(QWidget):
         return action_method, url, data
 
     def send_click(self):
-        send_request(self.network_manager, *self.get_request_data())
+        send_request(self.rest_manager, *self.get_request_data())
     def update_ui(self, data):
         self.result.setPlainText(data)
 
