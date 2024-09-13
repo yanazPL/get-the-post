@@ -22,6 +22,7 @@ data_str_create = f"""{{
 """
 
 
+@pytest.mark.exapi()
 @pytest.mark.parametrize("data_str", [data_str_create])
 def test_post(qtbot, data_str):
     ui = UserInterface()
@@ -36,6 +37,7 @@ def test_post(qtbot, data_str):
     assert ui.result.toPlainText() != result_before
 
 
+@pytest.mark.exapi()
 def test_get_list(qtbot):
     ui = UserInterface()
     qtbot.add_widget(ui)
@@ -49,6 +51,7 @@ def test_get_list(qtbot):
     assert ui.result.toPlainText() != result_before
 
 
+@pytest.mark.exapi()
 def test_get_one(qtbot):
     ui = UserInterface()
     qtbot.add_widget(ui)
@@ -62,6 +65,7 @@ def test_get_one(qtbot):
     assert ui.result.toPlainText() != result_before
 
 
+@pytest.mark.exapi()
 def test_patch(qtbot):
     ui = UserInterface()
     qtbot.add_widget(ui)
@@ -77,6 +81,7 @@ def test_patch(qtbot):
     assert ui.result.toPlainText() != result_before
 
 
+@pytest.mark.exapi()
 def test_delete(qtbot):
     ui = UserInterface()
     qtbot.add_widget(ui)
@@ -90,6 +95,7 @@ def test_delete(qtbot):
     assert ui.result.toPlainText() != result_before
 
 
+@pytest.mark.exapi()
 @pytest.mark.parametrize("data_str", [data_str_create, data_str_update])
 def test_put(qtbot, data_str):
     ui = UserInterface()
