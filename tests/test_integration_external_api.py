@@ -1,25 +1,7 @@
 import pytest
 from ..ui import UserInterface
 from ..logic import ACTIONS_METHODS
-
-
-EXISTING_ID = 1
-NON_EXISTING_ID = 666
-
-data_str_update = f"""{{
-    "id": {EXISTING_ID},
-    "title": "foo",
-    "body": "new_bar",
-    "userId": 1
-}}"""
-
-data_str_create = f"""{{
-    "id": {NON_EXISTING_ID},
-    "title": "new_foo",
-    "body": "new_bar",
-    "userId": 1
-}}
-"""
+from .conftest import data_str_create, data_str_update, NON_EXISTING_ID, EXISTING_ID
 
 
 @pytest.mark.exapi()
