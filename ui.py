@@ -9,6 +9,7 @@ from PySide6.QtWidgets import (
     QTextEdit,
     QTabWidget,
     QListWidget,
+    QLabel,
 )
 from PySide6.QtNetwork import (
     QNetworkAccessManager,
@@ -18,7 +19,7 @@ from PySide6.QtCore import QUrl, QByteArray
 import sys
 import json
 from functools import partial
-from logic import ACTIONS_METHODS
+from logic import ACTIONS_METHODS, get_status_message
 from logic import handle_response, send_request
 
 
@@ -38,6 +39,7 @@ class UserInterface(QWidget):
         self.body = QTextEdit("{\n\n\n}")
         self.headers = QListWidget()
         self.params = QListWidget()
+        self.status_label = QLabel(self)
 
         results_hbox.addWidget(self.result)
         link_hbox.addWidget(self.combo_box)
@@ -45,7 +47,6 @@ class UserInterface(QWidget):
         link_hbox.addWidget(self.send_btn)
 
         self.body.setAcceptRichText(False)
-
         self.setLayout(main_vbox)
         self.network_manager = QNetworkAccessManager()
         self.rest_manager = QRestAccessManager(self.network_manager)
@@ -57,6 +58,8 @@ class UserInterface(QWidget):
         self.tabs.addTab(self.params, "Params")
         self.tabs.addTab(self.headers, "Headers")
         self.tabs.addTab(self.body, "Body")
+        self.status_label.setStyle(self.tabs.style())
+        self.tabs.setCornerWidget(self.status_label)
 
         main_vbox.addLayout(link_hbox)
         main_vbox.addLayout(results_hbox)
@@ -77,8 +80,9 @@ class UserInterface(QWidget):
     def send_click(self):
         send_request(self.rest_manager, *self.get_request_data())
 
-    def update_ui(self, data):
+    def update_ui(self, data, status_code, time):
         self.result.setPlainText(data)
+        self.status_label.setText(f"{get_status_message(status_code)}, {time} ms")
 
 
 if __name__ == "__main__":
