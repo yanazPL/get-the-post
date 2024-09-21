@@ -21,6 +21,7 @@ import json
 from functools import partial
 from logic import ACTIONS_METHODS, get_status_message
 from logic import handle_response, send_request
+from key_val_table import KeyValTable
 
 
 class UserInterface(QWidget):
@@ -37,8 +38,8 @@ class UserInterface(QWidget):
         self.send_btn = QPushButton("Send", self)
         self.result = QTextEdit("{\n\n\n}", self)
         self.body = QTextEdit("{\n\n\n}")
-        self.headers = QListWidget()
-        self.params = QListWidget()
+        self.headers = KeyValTable()
+        self.params = KeyValTable()
         self.status_label = QLabel(self)
 
         results_hbox.addWidget(self.result)
