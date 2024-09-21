@@ -5,6 +5,7 @@ from PySide6.QtCore import Qt
 Unchecked = Qt.CheckState.Unchecked
 Checked = Qt.CheckState.Checked
 
+
 def test_init(qtbot):
     table = KeyValTable()
     qtbot.add_widget(table)
@@ -40,6 +41,7 @@ def test_adding_deleting_rows(qtbot):
     table.cellWidget(1, XBUTTON_COL).click()
     assert table.rowCount() == 2
 
+
 def test_first_xbutton_toggle(qtbot):
     table = KeyValTable()
     qtbot.add_widget(table)
@@ -50,6 +52,7 @@ def test_first_xbutton_toggle(qtbot):
     table.add_row_if_last(1)
     assert first_x_button.text() == "X"
 
+
 def test_is_empty_row(qtbot):
     table = KeyValTable()
     qtbot.add_widget(table)
@@ -58,9 +61,8 @@ def test_is_empty_row(qtbot):
     assert table.is_empty_row(1)
     table.item(1, VALUE_COL).setText("lorem")
     table.item(1, KEY_COL).setText("lorem")
-    import time
     table.show()
-   
+
     assert not table.is_empty_row(1)
 
 
@@ -86,18 +88,32 @@ def test_data(qtbot):
     table.show()
     qtbot.waitForWindowShown(table)
     input_data = (
-        ("k1", "v1", Checked), ("k1", "v1", Unchecked), ("", "empty_k", Checked), ("", "empty_k", Unchecked), ("k2", "v2", Checked), ("k2", "v2", Unchecked),
-        ("k1", "v1", Checked), ("k2", "v2", Unchecked), ("empty_v", "", Checked), ("empty_v", "", Unchecked),
-        ("k3", "v3", Unchecked), ("k3", "v3", Checked),
+        ("k1", "v1", Checked),
+        ("k1", "v1", Unchecked),
+        ("", "empty_k", Checked),
+        ("", "empty_k", Unchecked),
+        ("k2", "v2", Checked),
+        ("k2", "v2", Unchecked),
+        ("k1", "v1", Checked),
+        ("k2", "v2", Unchecked),
+        ("empty_v", "", Checked),
+        ("empty_v", "", Unchecked),
+        ("k3", "v3", Unchecked),
+        ("k3", "v3", Checked),
     )
     expected_result = [
-        ("k1", "v1"), ("", "empty_k"),  ("k2", "v2"), ("k1", "v1"), ("empty_v", ""), ("k3", "v3")
+        ("k1", "v1"),
+        ("", "empty_k"),
+        ("k2", "v2"),
+        ("k1", "v1"),
+        ("empty_v", ""),
+        ("k3", "v3"),
     ]
     assert input_data[0] == ("k1", "v1", Checked)
 
     for row_data in input_data:
         fill_row_with_data(table, table.last_row, *row_data)
-    
+
     table.refresh_data()
     assert table.data == expected_result
 
@@ -112,4 +128,4 @@ def test_check_uncheck(qtbot):
     assert table.data == [("k1", "v1")]
     table.item(1, CHECKBOX_COL).setCheckState(Unchecked)
     table.refresh_data()
-    assert table.data == [] 
+    assert table.data == []
