@@ -103,7 +103,7 @@ class KeyValTable(QTableWidget):
 
     def delete_row(self, item_in_row):
         """item (not row) passed because row can change after deletion"""
-        if not self.rowCount() > 2:
+        if self.rowCount() <= 2:
             return
         self.removeRow(item_in_row.row())
         self.last_row -= 1
